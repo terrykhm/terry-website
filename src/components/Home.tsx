@@ -34,7 +34,7 @@ export default function Home({ c, dark, isMobile }: HomeProps) {
 
   const heroSectionStyle: CSSProperties = {
     position: 'relative',
-    background: c.bg,
+    backgroundColor: c.bg,
     backgroundImage: `linear-gradient(${c.gridLine} 1px,transparent 1px),linear-gradient(90deg,${c.gridLine} 1px,transparent 1px)`,
     backgroundSize: '34px 34px',
     padding: isMobile ? '72px 0 76px' : '140px 0 148px',
