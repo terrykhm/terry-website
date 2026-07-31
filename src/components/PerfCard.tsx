@@ -10,7 +10,7 @@ interface PerfCardProps {
   open: boolean;
 }
 
-const PLACEHOLDER = { ttfb: '—', dcl: '—', load: '—', totalKb: '—', count: '—' };
+const PLACEHOLDER = { ttfb: '—', dcl: '—', load: '—', totalKb: '—', count: '—', resources: [] as PerfMetrics['resources'] };
 
 export default function PerfCard({ dark, isMobile, perf, open }: PerfCardProps) {
   const p = perf ?? PLACEHOLDER;
@@ -60,6 +60,31 @@ export default function PerfCard({ dark, isMobile, perf, open }: PerfCardProps) 
     cursor: 'default',
   };
 
+  const waterfallPanelStyle: CSSProperties = { marginTop: 12, paddingTop: 16, borderTop: '1px solid #1f1f1f' };
+  const waterfallHeadStyle: CSSProperties = {
+    fontFamily: "'JetBrains Mono',monospace",
+    fontSize: 10.5,
+    color: '#6a6a6a',
+    marginBottom: 14,
+  };
+  const waterfallListStyle: CSSProperties = {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
+    fontFamily: "'JetBrains Mono',monospace",
+    fontSize: 11,
+  };
+  const waterfallRowStyle: CSSProperties = { display: 'flex', justifyContent: 'space-between', color: '#e5e5e5' };
+  const waterfallNameStyle: CSSProperties = { overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0 };
+  const waterfallMetaStyle: CSSProperties = { color: '#9a9a9a', whiteSpace: 'nowrap', flexShrink: 0, marginLeft: 12 };
+  const waterfallTrackStyle: CSSProperties = { height: 4, background: '#262626', borderRadius: 3, marginTop: 4 };
+  const waterfallBarStyle = (widthPercent: number): CSSProperties => ({
+    height: 4,
+    background: '#8fbf8f',
+    borderRadius: 3,
+    width: `${widthPercent}%`,
+  });
+
   return (
     <div style={perfSlideWrapStyle}>
       <div style={perfCardStyle}>
@@ -84,6 +109,29 @@ export default function PerfCard({ dark, isMobile, perf, open }: PerfCardProps) 
             </span>
           </div>
         </div>
+
+        {p.resources.length > 0 && (
+          <div style={waterfallPanelStyle}>
+            <div style={waterfallHeadStyle}>
+              {p.count} resources · {p.totalKb} kb total
+            </div>
+            <div style={waterfallListStyle}>
+              {p.resources.map((r) => (
+                <div key={r.name}>
+                  <div style={waterfallRowStyle}>
+                    <span style={waterfallNameStyle}>{r.name}</span>
+                    <span style={waterfallMetaStyle}>
+                      {r.duration} ms · {r.kb} kb
+                    </span>
+                  </div>
+                  <div style={waterfallTrackStyle}>
+                    <div style={waterfallBarStyle(r.widthPercent)} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
