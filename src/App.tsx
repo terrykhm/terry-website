@@ -45,7 +45,7 @@ function App() {
         onCloseMobileMenu={closeMobileMenu}
       />
 
-      {route === 'home' && <Home c={c} isMobile={isMobile} />}
+      {route === 'home' && <Home c={c} dark={dark} isMobile={isMobile} />}
       {route === 'experience' && <Experience c={c} isMobile={isMobile} />}
       {route === 'projects' && <Projects c={c} isMobile={isMobile} />}
       {route === 'writing' && <Writing c={c} isMobile={isMobile} />}

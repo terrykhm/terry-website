@@ -1,9 +1,12 @@
 import { useState, type CSSProperties, type MouseEvent } from 'react';
 import type { Colors } from '../theme';
 import type { Route } from '../routes';
+import { usePerfMetrics } from '../hooks';
+import PerfCard from './PerfCard';
 
 interface HomeProps {
   c: Colors;
+  dark: boolean;
   isMobile: boolean;
 }
 
@@ -12,9 +15,12 @@ const HOME_LINKS: { name: Extract<Route, 'experience' | 'contact'>; label: strin
   { name: 'contact', label: 'Contact' },
 ];
 
-export default function Home({ c, isMobile }: HomeProps) {
+export default function Home({ c, dark, isMobile }: HomeProps) {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [hovered, setHovered] = useState<string | null>(null);
+  const [perfOpen, setPerfOpen] = useState(false);
+  const perf = usePerfMetrics();
+  const togglePerf = () => setPerfOpen((open) => !open);
 
   const pad = isMobile ? '0 20px' : '0 44px';
 
@@ -59,6 +65,20 @@ export default function Home({ c, isMobile }: HomeProps) {
     margin: '20px 0 0',
     maxWidth: 640,
     textAlign: 'left',
+  };
+
+  const perfLinkStyle: CSSProperties = {
+    color: c.textMuted,
+    cursor: 'pointer',
+    textDecoration: 'none',
+    paddingBottom: 2,
+    backgroundImage:
+      'repeating-linear-gradient(to right,currentColor 0,currentColor 40px,transparent 60px,currentColor 80px,currentColor 120px)',
+    backgroundSize: '100% 1px',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: '0 100%',
+    animation: 'perf-underline-sweep 4s linear infinite',
+    transition: 'color .2s ease',
   };
 
   const heroIntroStyle: CSSProperties = {
@@ -153,7 +173,20 @@ export default function Home({ c, isMobile }: HomeProps) {
     <div style={heroSectionStyle}>
       <div style={heroInnerStyle} onMouseMove={onHeroMove} onMouseLeave={onHeroLeave}>
         <h1 style={heroNameStyle}>Terry Kim</h1>
-        <p style={heroTaglineStyle}>Software Engineer — Mobile App Architecture &amp; Performance</p>
+        <p style={heroTaglineStyle}>
+          Software Engineer — Mobile App Architecture &amp;{' '}
+          <span
+            role="button"
+            tabIndex={0}
+            aria-expanded={perfOpen}
+            onClick={togglePerf}
+            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && togglePerf()}
+            style={perfLinkStyle}
+          >
+            Performance
+          </span>
+        </p>
+        <PerfCard c={c} dark={dark} isMobile={isMobile} perf={perf} open={perfOpen} />
         <p style={heroIntroStyle}>
           I'm a software engineer based in New York, currently at Instagram working on mobile app architecture and
           performance. Full-stack web and Android/iOS developer at heart.

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { routeFromHash, type Route } from './routes';
+import { computePerf, type PerfMetrics } from './perf';
 
 export function useIsMobile(breakpoint = 760): boolean {
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < breakpoint);
@@ -23,6 +24,23 @@ export function useScrolled(threshold = 24): boolean {
   }, [threshold]);
 
   return scrolled;
+}
+
+export function usePerfMetrics(): PerfMetrics | null {
+  const [perf, setPerf] = useState<PerfMetrics | null>(null);
+
+  useEffect(() => {
+    const measure = () => setTimeout(() => setPerf(computePerf()), 50);
+
+    if (document.readyState === 'complete') {
+      measure();
+      return;
+    }
+    window.addEventListener('load', measure, { once: true });
+    return () => window.removeEventListener('load', measure);
+  }, []);
+
+  return perf;
 }
 
 export function useRoute(): Route {
