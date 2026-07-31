@@ -6,7 +6,7 @@ import Projects from './components/Projects';
 import Writing from './components/Writing';
 import Contact from './components/Contact';
 import { getColors, type Theme } from './theme';
-import { useIsMobile, useRoute, useScrolled } from './hooks';
+import { useDocumentTheme, useIsMobile, useRoute, useScrolled } from './hooks';
 
 function App() {
   const [theme, setTheme] = useState<Theme>('dark');
@@ -18,6 +18,8 @@ function App() {
 
   const dark = theme === 'dark';
   const c = getColors(theme);
+
+  useDocumentTheme(theme, c.bg);
 
   const toggleTheme = () => setTheme((t) => (t === 'dark' ? 'light' : 'dark'));
   const toggleMobileMenu = () => setMobileMenuOpen((open) => !open);

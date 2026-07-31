@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { routeFromHash, type Route } from './routes';
 import { computePerf, type PerfMetrics } from './perf';
+import type { Theme } from './theme';
 
 export function useIsMobile(breakpoint = 760): boolean {
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < breakpoint);
@@ -41,6 +42,14 @@ export function usePerfMetrics(): PerfMetrics | null {
   }, []);
 
   return perf;
+}
+
+export function useDocumentTheme(theme: Theme, bg: string): void {
+  useEffect(() => {
+    const root = document.documentElement;
+    root.style.backgroundColor = bg;
+    root.style.colorScheme = theme;
+  }, [theme, bg]);
 }
 
 export function useRoute(): Route {
