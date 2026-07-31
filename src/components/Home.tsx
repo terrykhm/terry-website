@@ -54,6 +54,7 @@ export default function Home({ c, dark, isMobile }: HomeProps) {
     textAlign: 'left',
     transform: `perspective(600px) rotateX(${tilt.y}deg) rotateY(${tilt.x}deg)`,
     transition: 'transform .15s ease-out',
+    animation: dark ? 'hero-name-glow 4s cubic-bezier(.37,0,.63,1) infinite alternate' : undefined,
     transformStyle: 'preserve-3d',
     display: 'inline-block',
   };

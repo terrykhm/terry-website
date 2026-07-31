@@ -15,6 +15,21 @@ a {
   background: rgba(128, 128, 128, 0.35);
 }
 
+@keyframes hero-name-glow {
+  from {
+    text-shadow:
+      0 0 4px color-mix(in oklab, currentColor 45%, transparent),
+      0 0 12px color-mix(in oklab, currentColor 30%, transparent),
+      0 0 28px color-mix(in oklab, currentColor 18%, transparent);
+  }
+  to {
+    text-shadow:
+      0 0 7px color-mix(in oklab, currentColor 62%, transparent),
+      0 0 20px color-mix(in oklab, currentColor 44%, transparent),
+      0 0 46px color-mix(in oklab, currentColor 28%, transparent);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;
