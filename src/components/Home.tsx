@@ -7,10 +7,8 @@ interface HomeProps {
   isMobile: boolean;
 }
 
-const HOME_LINKS: { name: Exclude<Route, 'home'>; label: string }[] = [
+const HOME_LINKS: { name: Extract<Route, 'experience' | 'contact'>; label: string }[] = [
   { name: 'experience', label: 'Experience' },
-  { name: 'projects', label: 'Projects' },
-  { name: 'writing', label: 'Writing' },
   { name: 'contact', label: 'Contact' },
 ];
 
@@ -108,6 +106,49 @@ export default function Home({ c, isMobile }: HomeProps) {
     };
   };
 
+  const crossedOutTextStyle: CSSProperties = {
+    display: 'inline-flex',
+    alignItems: 'center',
+    fontSize: isMobile ? 17 : 19,
+    fontWeight: 600,
+    color: c.textMuted,
+  };
+
+  const constructionWrapStyle: CSSProperties = { position: 'relative', display: 'inline-flex', alignItems: 'center' };
+
+  const constructionScribbleStyle: CSSProperties = {
+    position: 'absolute',
+    left: -10,
+    width: 'calc(100% + 20px)',
+    top: 'calc(50% - 4px)',
+    height: 12,
+    pointerEvents: 'none',
+  };
+
+  const constructionLabelStyle = (rotate: number): CSSProperties => ({
+    fontFamily: "'Permanent Marker',cursive",
+    color: '#e5484d',
+    fontSize: isMobile ? 13 : 15,
+    marginLeft: isMobile ? 18 : 22,
+    transform: `rotate(${rotate}deg)`,
+    whiteSpace: 'nowrap',
+    pointerEvents: 'none',
+  });
+
+  const scribble = (id: string, d: string) => (
+    <svg style={constructionScribbleStyle} viewBox="0 0 100 12" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id={id} x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0%" stopColor="#e5484d" stopOpacity={0} />
+          <stop offset="14%" stopColor="#e5484d" stopOpacity={1} />
+          <stop offset="86%" stopColor="#e5484d" stopOpacity={1} />
+          <stop offset="100%" stopColor="#e5484d" stopOpacity={0} />
+        </linearGradient>
+      </defs>
+      <path d={d} stroke={`url(#${id})`} strokeWidth={3} fill="none" strokeLinecap="round" />
+    </svg>
+  );
+
   return (
     <div style={heroSectionStyle}>
       <div style={heroInnerStyle} onMouseMove={onHeroMove} onMouseLeave={onHeroLeave}>
@@ -118,18 +159,41 @@ export default function Home({ c, isMobile }: HomeProps) {
           performance. Full-stack web and Android/iOS developer at heart.
         </p>
         <div style={homeLinksRowStyle}>
-          {HOME_LINKS.map((link) => (
-            <a
-              key={link.name}
-              href={`#/${link.name}`}
-              onMouseEnter={() => setHovered(link.name)}
-              onMouseLeave={() => setHovered(null)}
-              style={homeLinkCardStyle(link.name)}
-            >
-              <span style={homeLinkArrowStyle(link.name)}>→</span>
-              {link.label}
-            </a>
-          ))}
+          <a
+            href={`#/${HOME_LINKS[0].name}`}
+            onMouseEnter={() => setHovered(HOME_LINKS[0].name)}
+            onMouseLeave={() => setHovered(null)}
+            style={homeLinkCardStyle(HOME_LINKS[0].name)}
+          >
+            <span style={homeLinkArrowStyle(HOME_LINKS[0].name)}>→</span>
+            {HOME_LINKS[0].label}
+          </a>
+
+          <div style={constructionWrapStyle}>
+            <span style={constructionWrapStyle}>
+              <span style={crossedOutTextStyle}>Projects</span>
+              {scribble('inkProjects', 'M3,9 Q50,1 97,7')}
+            </span>
+            <span style={constructionLabelStyle(-4)}>Under Construction</span>
+          </div>
+
+          <div style={constructionWrapStyle}>
+            <span style={constructionWrapStyle}>
+              <span style={crossedOutTextStyle}>Writing</span>
+              {scribble('inkWriting', 'M3,10 Q50,1 97,3')}
+            </span>
+            <span style={constructionLabelStyle(3)}>Under Construction</span>
+          </div>
+
+          <a
+            href={`#/${HOME_LINKS[1].name}`}
+            onMouseEnter={() => setHovered(HOME_LINKS[1].name)}
+            onMouseLeave={() => setHovered(null)}
+            style={homeLinkCardStyle(HOME_LINKS[1].name)}
+          >
+            <span style={homeLinkArrowStyle(HOME_LINKS[1].name)}>→</span>
+            {HOME_LINKS[1].label}
+          </a>
         </div>
       </div>
     </div>
