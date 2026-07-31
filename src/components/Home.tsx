@@ -98,6 +98,10 @@ export default function Home({ c, dark, isMobile }: HomeProps) {
     alignItems: 'flex-start',
   };
 
+  const dropInStyle = (order: number): CSSProperties => ({
+    animation: `home-link-drop .55s cubic-bezier(.16,1,.3,1) ${order * 0.09}s both`,
+  });
+
   const homeLinkCardStyle = (name: string): CSSProperties => {
     const isHovered = hovered === name;
     return {
@@ -199,13 +203,13 @@ export default function Home({ c, dark, isMobile }: HomeProps) {
             href={`#/${HOME_LINKS[0].name}`}
             onMouseEnter={() => setHovered(HOME_LINKS[0].name)}
             onMouseLeave={() => setHovered(null)}
-            style={homeLinkCardStyle(HOME_LINKS[0].name)}
+            style={{ ...homeLinkCardStyle(HOME_LINKS[0].name), ...dropInStyle(0) }}
           >
             <span style={homeLinkArrowStyle(HOME_LINKS[0].name)}>→</span>
             {HOME_LINKS[0].label}
           </a>
 
-          <div style={constructionWrapStyle}>
+          <div style={{ ...constructionWrapStyle, ...dropInStyle(1) }}>
             <span style={constructionWrapStyle}>
               <span style={crossedOutTextStyle}>Projects</span>
               {scribble('inkProjects', 'M3,9 Q50,1 97,7')}
@@ -213,7 +217,7 @@ export default function Home({ c, dark, isMobile }: HomeProps) {
             <span style={constructionLabelStyle(-4)}>Under Construction</span>
           </div>
 
-          <div style={constructionWrapStyle}>
+          <div style={{ ...constructionWrapStyle, ...dropInStyle(2) }}>
             <span style={constructionWrapStyle}>
               <span style={crossedOutTextStyle}>Writing</span>
               {scribble('inkWriting', 'M3,10 Q50,1 97,3')}
@@ -225,7 +229,7 @@ export default function Home({ c, dark, isMobile }: HomeProps) {
             href={`#/${HOME_LINKS[1].name}`}
             onMouseEnter={() => setHovered(HOME_LINKS[1].name)}
             onMouseLeave={() => setHovered(null)}
-            style={homeLinkCardStyle(HOME_LINKS[1].name)}
+            style={{ ...homeLinkCardStyle(HOME_LINKS[1].name), ...dropInStyle(3) }}
           >
             <span style={homeLinkArrowStyle(HOME_LINKS[1].name)}>→</span>
             {HOME_LINKS[1].label}
