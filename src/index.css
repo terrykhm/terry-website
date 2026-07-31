@@ -15,11 +15,8 @@ a {
   background: rgba(128, 128, 128, 0.35);
 }
 
-@keyframes perf-underline-sweep {
-  from {
-    background-position: 0 100%;
-  }
-  to {
-    background-position: -120px 100%;
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
   }
 }

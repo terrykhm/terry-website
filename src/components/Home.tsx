@@ -68,17 +68,15 @@ export default function Home({ c, dark, isMobile }: HomeProps) {
   };
 
   const perfLinkStyle: CSSProperties = {
-    color: c.textMuted,
+    color: hovered === 'perf' ? c.text : c.textMuted,
     cursor: 'pointer',
     textDecoration: 'none',
     paddingBottom: 2,
-    backgroundImage:
-      'repeating-linear-gradient(to right,currentColor 0,currentColor 40px,transparent 60px,currentColor 80px,currentColor 120px)',
-    backgroundSize: '100% 1px',
+    backgroundImage: `linear-gradient(to right,${c.text} 50%,${c.textFaint} 50%)`,
+    backgroundSize: '200% 2px',
     backgroundRepeat: 'no-repeat',
-    backgroundPosition: '0 100%',
-    animation: 'perf-underline-sweep 4s linear infinite',
-    transition: 'color .2s ease',
+    backgroundPosition: hovered === 'perf' ? '0% 100%' : '100% 100%',
+    transition: 'background-position .3s ease,color .2s ease',
   };
 
   const heroIntroStyle: CSSProperties = {
@@ -181,6 +179,10 @@ export default function Home({ c, dark, isMobile }: HomeProps) {
             aria-expanded={perfOpen}
             onClick={togglePerf}
             onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && togglePerf()}
+            onMouseEnter={() => setHovered('perf')}
+            onMouseLeave={() => setHovered(null)}
+            onFocus={() => setHovered('perf')}
+            onBlur={() => setHovered(null)}
             style={perfLinkStyle}
           >
             Performance
