@@ -69,10 +69,10 @@ export default function Contact({ c, isMobile }: ContactProps) {
     <div style={contactSectionStyle}>
       <div style={sectionInnerStyle}>
         <div style={pageTitleStyle}>Contact</div>
-        <h2 style={contactHeadingStyle}>Let's build something reliable.</h2>
+        <h2 style={contactHeadingStyle}>Say hello.</h2>
         <p style={contactBodyStyle}>
-          Open to conversations about mobile architecture, performance engineering, or interesting problems in
-          general.
+          Open to conversations about engineering, exciting opportunities, and interesting problems in general.
+          Let's build something.
         </p>
         <div style={{ display: 'flex', gap: 12, marginTop: 34, flexWrap: 'wrap' }}>
           <a href="mailto:hello@example.com" style={primaryBtnStyle}>
