@@ -34,6 +34,12 @@ export default function Contact({ c, isMobile }: ContactProps) {
 
   const contactBodyStyle: CSSProperties = { fontSize: 15, color: c.textMuted, maxWidth: 520, lineHeight: 1.6, margin: 0 };
 
+  const waveEmojiStyle: CSSProperties = {
+    display: 'inline-block',
+    transformOrigin: '70% 70%',
+    animation: 'wave-hand 2.4s ease-in-out 1',
+  };
+
   const primaryBtnStyle: CSSProperties = {
     background: c.invertBg,
     color: c.invertText,
@@ -69,11 +75,10 @@ export default function Contact({ c, isMobile }: ContactProps) {
     <div style={contactSectionStyle}>
       <div style={sectionInnerStyle}>
         <div style={pageTitleStyle}>Contact</div>
-        <h2 style={contactHeadingStyle}>Say hello 👋</h2>
-        <p style={contactBodyStyle}>
-          Open to conversations about engineering, exciting opportunities, and interesting problems in general.
-          Let's build something.
-        </p>
+        <h2 style={contactHeadingStyle}>
+          Say hello <span style={waveEmojiStyle}>👋</span>
+        </h2>
+        <p style={contactBodyStyle}>Open to conversations about engineering and interesting problems. Let's build something together!</p>
         <div style={{ display: 'flex', gap: 12, marginTop: 34, flexWrap: 'wrap' }}>
           <a href="mailto:hello@example.com" style={primaryBtnStyle}>
             Email me
