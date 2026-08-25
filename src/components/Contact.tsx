@@ -69,7 +69,7 @@ export default function Contact({ c, isMobile }: ContactProps) {
     <div style={contactSectionStyle}>
       <div style={sectionInnerStyle}>
         <div style={pageTitleStyle}>Contact</div>
-        <h2 style={contactHeadingStyle}>Say hello.</h2>
+        <h2 style={contactHeadingStyle}>Say hello 👋</h2>
         <p style={contactBodyStyle}>
           Open to conversations about engineering, exciting opportunities, and interesting problems in general.
           Let's build something.
