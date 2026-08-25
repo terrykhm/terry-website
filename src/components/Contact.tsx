@@ -1,10 +1,12 @@
-import { useState, type CSSProperties } from 'react';
+import { useEffect, useState, type CSSProperties } from 'react';
 import type { Colors } from '../theme';
 
 interface ContactProps {
   c: Colors;
   isMobile: boolean;
 }
+
+const EMAIL = 'terrykimwork@gmail.com';
 
 function MailIcon() {
   return (
@@ -25,6 +27,29 @@ function LinkedInIcon() {
 
 export default function Contact({ c, isMobile }: ContactProps) {
   const [hoveredBtn, setHoveredBtn] = useState<'email' | 'linkedin' | null>(null);
+  const [emailCopied, setEmailCopied] = useState(false);
+
+  useEffect(() => {
+    if (!emailCopied) return;
+    const timer = setTimeout(() => setEmailCopied(false), 2200);
+    return () => clearTimeout(timer);
+  }, [emailCopied]);
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+    } catch {
+      const textarea = document.createElement('textarea');
+      textarea.value = EMAIL;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+    }
+    setEmailCopied(true);
+  };
 
   const pad = isMobile ? '0 20px' : '0 44px';
 
@@ -96,6 +121,24 @@ export default function Contact({ c, isMobile }: ContactProps) {
     transition: 'opacity .18s ease, transform .18s ease',
   });
 
+  const toastStyle: CSSProperties = {
+    position: 'absolute',
+    bottom: 'calc(100% + 10px)',
+    left: '50%',
+    transform: emailCopied ? 'translateX(-50%) translateY(0)' : 'translateX(-50%) translateY(6px)',
+    opacity: emailCopied ? 1 : 0,
+    pointerEvents: 'none',
+    background: c.invertBg,
+    color: c.invertText,
+    fontFamily: "'JetBrains Mono',monospace",
+    fontSize: 12.5,
+    fontWeight: 700,
+    padding: '8px 12px',
+    borderRadius: 8,
+    whiteSpace: 'nowrap',
+    transition: 'opacity .18s ease, transform .18s ease',
+  };
+
   const footerStyle: CSSProperties = {
     textAlign: 'center',
     fontSize: 12.5,
@@ -113,18 +156,24 @@ export default function Contact({ c, isMobile }: ContactProps) {
         </h2>
         <p style={contactBodyStyle}>Open to conversations about engineering and interesting problems. Let's build something together!</p>
         <div style={{ display: 'flex', gap: 12, marginTop: 34, flexWrap: 'wrap' }}>
-          <a
-            href="mailto:hello@example.com"
-            aria-label="Email me"
-            style={primaryBtnStyle}
-            onMouseEnter={() => setHoveredBtn('email')}
-            onMouseLeave={() => setHoveredBtn(null)}
-          >
-            <span style={btnLayerStyle(hoveredBtn !== 'email')}>
-              <MailIcon />
-            </span>
-            <span style={btnLayerStyle(hoveredBtn === 'email')}>Email me</span>
-          </a>
+          <div style={{ position: 'relative', display: 'inline-block' }}>
+            <div role="status" aria-live="polite" style={toastStyle}>
+              Email copied!
+            </div>
+            <button
+              type="button"
+              aria-label="Copy email address"
+              style={{ ...primaryBtnStyle, border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}
+              onClick={handleCopyEmail}
+              onMouseEnter={() => setHoveredBtn('email')}
+              onMouseLeave={() => setHoveredBtn(null)}
+            >
+              <span style={btnLayerStyle(hoveredBtn !== 'email')}>
+                <MailIcon />
+              </span>
+              <span style={btnLayerStyle(hoveredBtn === 'email')}>Email me</span>
+            </button>
+          </div>
           <a
             href="https://www.linkedin.com/in/terry-kim/"
             target="_blank"
