@@ -114,7 +114,7 @@ export default function Contact({ c, isMobile }: ContactProps) {
         <p style={contactBodyStyle}>Open to conversations about engineering and interesting problems. Let's build something together!</p>
         <div style={{ display: 'flex', gap: 12, marginTop: 34, flexWrap: 'wrap' }}>
           <a
-            href="mailto:hello@example.com"
+            href="mailto:terrykimwork@gmail.com"
             aria-label="Email me"
             style={primaryBtnStyle}
             onMouseEnter={() => setHoveredBtn('email')}
