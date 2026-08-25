@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react';
+import { useState, type CSSProperties } from 'react';
 import type { Colors } from '../theme';
 
 interface ContactProps {
@@ -6,7 +6,26 @@ interface ContactProps {
   isMobile: boolean;
 }
 
+function MailIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="m3 7 9 6 9-6" />
+    </svg>
+  );
+}
+
+function LinkedInIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.114 20.452H3.558V9h3.556v11.452z" />
+    </svg>
+  );
+}
+
 export default function Contact({ c, isMobile }: ContactProps) {
+  const [hoveredBtn, setHoveredBtn] = useState<'email' | 'linkedin' | null>(null);
+
   const pad = isMobile ? '0 20px' : '0 44px';
 
   const contactSectionStyle: CSSProperties = {
@@ -40,28 +59,42 @@ export default function Contact({ c, isMobile }: ContactProps) {
     animation: 'wave-hand 2.4s ease-in-out 1',
   };
 
-  const primaryBtnStyle: CSSProperties = {
-    background: c.invertBg,
-    color: c.invertText,
+  const btnBaseStyle: CSSProperties = {
     fontSize: 14,
     fontWeight: 700,
     padding: '13px 22px',
     borderRadius: 8,
-    display: 'inline-block',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 118,
+    height: 44,
+    position: 'relative',
+    overflow: 'hidden',
     transition: 'transform .2s ease',
   };
 
+  const primaryBtnStyle: CSSProperties = {
+    ...btnBaseStyle,
+    background: c.invertBg,
+    color: c.invertText,
+  };
+
   const secondaryBtnStyle: CSSProperties = {
+    ...btnBaseStyle,
     background: 'transparent',
     color: c.text,
-    fontSize: 14,
-    fontWeight: 700,
-    padding: '13px 22px',
-    borderRadius: 8,
     border: `1px solid ${c.border}`,
-    display: 'inline-block',
-    transition: 'transform .2s ease',
   };
+
+  const btnLayerStyle = (visible: boolean): CSSProperties => ({
+    position: 'absolute',
+    display: 'inline-flex',
+    alignItems: 'center',
+    opacity: visible ? 1 : 0,
+    transform: visible ? 'scale(1)' : 'scale(0.85)',
+    transition: 'opacity .18s ease, transform .18s ease',
+  });
 
   const footerStyle: CSSProperties = {
     textAlign: 'center',
@@ -80,11 +113,31 @@ export default function Contact({ c, isMobile }: ContactProps) {
         </h2>
         <p style={contactBodyStyle}>Open to conversations about engineering and interesting problems. Let's build something together!</p>
         <div style={{ display: 'flex', gap: 12, marginTop: 34, flexWrap: 'wrap' }}>
-          <a href="mailto:hello@example.com" style={primaryBtnStyle}>
-            Email me
+          <a
+            href="mailto:hello@example.com"
+            aria-label="Email me"
+            style={primaryBtnStyle}
+            onMouseEnter={() => setHoveredBtn('email')}
+            onMouseLeave={() => setHoveredBtn(null)}
+          >
+            <span style={btnLayerStyle(hoveredBtn !== 'email')}>
+              <MailIcon />
+            </span>
+            <span style={btnLayerStyle(hoveredBtn === 'email')}>Email me</span>
           </a>
-          <a href="https://www.linkedin.com/in/terry-kim/" target="_blank" rel="noopener" style={secondaryBtnStyle}>
-            LinkedIn
+          <a
+            href="https://www.linkedin.com/in/terry-kim/"
+            target="_blank"
+            rel="noopener"
+            aria-label="LinkedIn"
+            style={secondaryBtnStyle}
+            onMouseEnter={() => setHoveredBtn('linkedin')}
+            onMouseLeave={() => setHoveredBtn(null)}
+          >
+            <span style={btnLayerStyle(hoveredBtn !== 'linkedin')}>
+              <LinkedInIcon />
+            </span>
+            <span style={btnLayerStyle(hoveredBtn === 'linkedin')}>LinkedIn</span>
           </a>
         </div>
       </div>
