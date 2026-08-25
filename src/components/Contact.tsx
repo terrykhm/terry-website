@@ -6,7 +6,10 @@ interface ContactProps {
   isMobile: boolean;
 }
 
-const EMAIL = 'terrykimwork@gmail.com';
+// Char codes rather than a literal string, so the address isn't a plain
+// scannable substring in the shipped bundle.
+const EMAIL_CODES = [116, 101, 114, 114, 121, 107, 105, 109, 119, 111, 114, 107, 64, 103, 109, 97, 105, 108, 46, 99, 111, 109];
+const getEmail = () => String.fromCharCode(...EMAIL_CODES);
 
 function MailIcon() {
   return (
@@ -36,11 +39,12 @@ export default function Contact({ c, isMobile }: ContactProps) {
   }, [emailCopied]);
 
   const handleCopyEmail = async () => {
+    const email = getEmail();
     try {
-      await navigator.clipboard.writeText(EMAIL);
+      await navigator.clipboard.writeText(email);
     } catch {
       const textarea = document.createElement('textarea');
-      textarea.value = EMAIL;
+      textarea.value = email;
       textarea.style.position = 'fixed';
       textarea.style.opacity = '0';
       document.body.appendChild(textarea);
