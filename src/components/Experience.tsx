@@ -1,10 +1,39 @@
-import type { CSSProperties } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import type { Colors } from '../theme';
 import { experiences, skills } from '../data';
 
 interface ExperienceProps {
   c: Colors;
   isMobile: boolean;
+}
+
+const LINK_PATTERN = /\[([^\]]+)\]\(([^)]+)\)/g;
+
+function renderBulletText(text: string, c: Colors): ReactNode[] {
+  const nodes: ReactNode[] = [];
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+  let key = 0;
+
+  LINK_PATTERN.lastIndex = 0;
+  while ((match = LINK_PATTERN.exec(text)) !== null) {
+    if (match.index > lastIndex) nodes.push(text.slice(lastIndex, match.index));
+    const [, label, url] = match;
+    nodes.push(
+      <a
+        key={key++}
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ color: c.textMuted, textDecoration: 'underline', textUnderlineOffset: 2 }}
+      >
+        {label}
+      </a>,
+    );
+    lastIndex = LINK_PATTERN.lastIndex;
+  }
+  if (lastIndex < text.length) nodes.push(text.slice(lastIndex));
+  return nodes;
 }
 
 export default function Experience({ c, isMobile }: ExperienceProps) {
@@ -88,7 +117,7 @@ export default function Experience({ c, isMobile }: ExperienceProps) {
                   {job.bullets.map((b, bi) => (
                     <div key={bi} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
                       <div style={{ width: 4, height: 4, borderRadius: '50%', background: c.textFaint, marginTop: 8, flex: 'none' }} />
-                      <div style={{ fontSize: 14, lineHeight: 1.55, color: c.textMuted }}>{b}</div>
+                      <div style={{ fontSize: 14, lineHeight: 1.55, color: c.textMuted }}>{renderBulletText(b, c)}</div>
                     </div>
                   ))}
                 </div>
