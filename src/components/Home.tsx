@@ -85,10 +85,12 @@ export default function Home({ c, dark, isMobile }: HomeProps) {
     color: c.textFaint,
     fontWeight: 500,
     margin: '16px 0 0',
-    maxWidth: 560,
+    maxWidth: 600,
     lineHeight: 1.6,
     textAlign: 'left',
   };
+
+  const heroIntroParaStyle: CSSProperties = { ...heroIntroStyle, margin: '12px 0 0' };
 
   const homeLinksRowStyle: CSSProperties = {
     display: 'flex',
@@ -177,7 +179,7 @@ export default function Home({ c, dark, isMobile }: HomeProps) {
       <div style={heroInnerStyle} onMouseMove={onHeroMove} onMouseLeave={onHeroLeave}>
         <h1 style={heroNameStyle}>Terry Kim</h1>
         <p style={heroTaglineStyle}>
-          Software Engineer — Mobile App Architecture &amp;{' '}
+          Software Engineer — App Architecture &amp;{' '}
           <span
             role="button"
             tabIndex={0}
@@ -195,9 +197,11 @@ export default function Home({ c, dark, isMobile }: HomeProps) {
         </p>
         <PerfCard c={c} dark={dark} isMobile={isMobile} perf={perf} open={perfOpen} />
         <p style={heroIntroStyle}>
-          I'm a software engineer based in New York, currently at Instagram working on mobile app architecture and
-          performance. Full-stack web and Android/iOS developer at heart.
+          I'm a software engineer based in New York specializing in app architecture and performance. Over the past
+          seven years at Meta, I've led teams and solved deep technical problems impacting users across Instagram,
+          Threads, and Facebook.
         </p>
+        <p style={heroIntroParaStyle}>Currently, I work on <em>Applied AI</em> and <em>Evaluations</em>.</p>
         <div style={homeLinksRowStyle}>
           <a
             href={`#/${HOME_LINKS[0].name}`}

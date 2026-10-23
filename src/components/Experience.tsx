@@ -49,15 +49,6 @@ export default function Experience({ c, isMobile }: ExperienceProps) {
     color: c.textFaint,
     marginBottom: isMobile ? 20 : 28,
   };
-  const aboutTextStyle: CSSProperties = {
-    fontSize: isMobile ? 16 : 18,
-    lineHeight: 1.6,
-    color: c.textMuted,
-    maxWidth: 720,
-    fontWeight: 500,
-    margin: `0 0 ${isMobile ? 36 : 48}px`,
-  };
-
   const eduCardStyle: CSSProperties = {
     background: c.card,
     border: `1px solid ${c.border}`,
@@ -89,13 +80,6 @@ export default function Experience({ c, isMobile }: ExperienceProps) {
     <div style={pageWrapStyle}>
       <div style={sectionInnerStyle}>
         <div style={pageTitleStyle}>Experience</div>
-        <p style={aboutTextStyle}>
-          I'm a software engineer based in New York, focused on mobile app architecture and performance. Over the
-          past several years I've worked across Instagram and Facebook's mobile surfaces — from Live Videos to Music
-          to core app performance — and before that shipped full-stack tools and services at AWS and Leidos. I care
-          about fast, dependable software and the systems that keep it that way.
-        </p>
-
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {experiences.map((job, i) => (
             <div key={i} style={{ display: 'flex', gap: 20 }}>
