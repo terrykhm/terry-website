@@ -201,7 +201,7 @@ export default function Home({ c, dark, isMobile }: HomeProps) {
           seven years at Meta, I've led teams and solved deep technical problems impacting users across Instagram,
           Threads, and Facebook.
         </p>
-        <p style={heroIntroParaStyle}>Currently, I work on <em>Applied AI</em> and <em>Evaluations</em>.</p>
+        <p style={{ ...heroIntroParaStyle, fontStyle: 'italic' }}>Currently, I work on Applied AI and Evaluations.</p>
         <div style={homeLinksRowStyle}>
           <a
             href={`#/${HOME_LINKS[0].name}`}

@@ -42,8 +42,8 @@ export const experiences: Experience[] = [
     dates: 'Aug 2019 — Jan 2021',
     bullets: [
       'Shipped Live viewer and broadcaster features — Stars fan-funding, ticketing, event promotion controls — across Android and Native Templates on the Live Music Experience team.',
-      "Became the sole Android engineer on [Boombox](https://techcrunch.com/2021/04/19/facebook-is-expanding-spotify-partnership-with-new-boombox-project/), Facebook's Spotify integration: architected and shipped the MVP, then led MVP2 with dark mode, a new permissions flow, and ads support. [(TechCrunch, 2021)](https://techcrunch.com/2021/04/19/facebook-is-expanding-spotify-partnership-with-new-boombox-project/)",
-      'Lifted the MiniPlayer’s user funnel 50%, by re-architecting it off a Service Context that required Android’s system-level "draw over other apps" permission — the change eliminated that permission screen entirely and was validated with senior Android engineers across three teams before shipping.',
+      "Became the sole Android engineer on [Boombox](https://techcrunch.com/2021/04/19/facebook-is-expanding-spotify-partnership-with-new-boombox-project/), Facebook's Spotify integration: architected and shipped the MVP, then led MVP2 with dark mode, a new permissions flow, and ads support. [(TechCrunch, 2021)](https://techcrunch.com/2021/04/19/facebook-is-expanding-spotify-partnership-with-new-boombox-project/) [(Spotify, 2021)](https://newsroom.spotify.com/2021-04-26/share-explore-and-discover-music-and-podcasts-via-spotify-in-the-facebook-app/)",
+      'Lifted the MiniPlayer’s user funnel 50%, by re-architecting it off a Service Context that required Android’s system-level "draw over other apps" permission — the change eliminated that permission screen entirely and was validated with senior Android engineers across three teams before shipping. [(Spotify, 2021)](https://newsroom.spotify.com/2021-04-26/share-explore-and-discover-music-and-podcasts-via-spotify-in-the-facebook-app/)',
       'Promoted to Software Engineer II after exceeding expectations two half-year cycles in a row.',
     ],
   },
