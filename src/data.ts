@@ -109,6 +109,18 @@ export const experiences: Experience[] = [
       'Cut average query time by more than 2 seconds using NLP to extract content from Leidos data sources.',
     ],
   },
+  {
+    role: 'Software Engineering Intern',
+    company: 'Center for Advanced Transportation Technologies Lab',
+    location: 'College Park, MD',
+    dates: 'Jan 2016 — Aug 2016',
+    bullets: [
+      'Built database applications to ingest hundreds of gigabytes of nationwide traffic data daily.',
+      'Reduced load and fetch times across various applications through concurrency and code simplification.',
+      'Designed and implemented large-scale back-end projects using Spring, PostgreSQL, and Hibernate.',
+      'Created web applications to visualize traffic data for clients using D3.',
+    ],
+  },
 ];
 
 export const skills: string[] = [
