@@ -34,7 +34,7 @@ export const experiences: Experience[] = [
       {
         title: 'Leadership',
         bullets: [
-          'Led a team of eight junior-to-staff engineers to exceed goals for consecutive halves, responsible for establishing team goals, direction, projects, partnerships, and mentorship.',
+          'Led a team of eight junior-to-staff engineers to exceed goals for consecutive halves, increasing revenue and user engagement while setting team direction, projects, partnerships, and mentorship.',
           "Served as the technical domain lead for Instagram Android's app-start, navigation, and pagination latency, supporting all teams across Instagram in optimizing latency and defending against regressions.",
           'Drove adoption of performance metrics across all Instagram teams through instrumentation support, regression debugging, and training, catching regressions before launch and enabling partner-team wins.',
           'Mentored 25+ engineers and interns across technical domains, project management, and promotions (IC3→4→5).',
