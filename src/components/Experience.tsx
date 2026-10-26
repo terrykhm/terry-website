@@ -57,6 +57,26 @@ export default function Experience({ c, isMobile }: ExperienceProps) {
     marginTop: 8,
   };
 
+  const subsectionStyle = (first: boolean): CSSProperties => ({
+    fontFamily: "'JetBrains Mono',monospace",
+    fontSize: 11.5,
+    textTransform: 'uppercase',
+    letterSpacing: '.08em',
+    fontWeight: 600,
+    color: c.textMuted,
+    margin: `${first ? 14 : 22}px 0 8px`,
+  });
+
+  const renderBullets = (bullets: string[]) =>
+    bullets.map((b, bi) => (
+      <div key={bi} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+        <div style={{ width: 4, height: 4, borderRadius: '50%', background: c.textFaint, marginTop: 8, flex: 'none' }} />
+        <div style={{ fontSize: 14, lineHeight: 1.55, color: c.textMuted }}>{renderBulletText(b, c)}</div>
+      </div>
+    ));
+
+  const bulletListStyle: CSSProperties = { display: 'flex', flexDirection: 'column', gap: 8 };
+
   const skillsKickerStyle: CSSProperties = {
     fontFamily: "'JetBrains Mono',monospace",
     fontSize: 12,
@@ -97,14 +117,15 @@ export default function Experience({ c, isMobile }: ExperienceProps) {
                 <div style={{ fontSize: 14, color: c.textMuted, fontWeight: 600, marginTop: 2 }}>
                   {job.company} · {job.location}
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 12 }}>
-                  {job.bullets.map((b, bi) => (
-                    <div key={bi} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-                      <div style={{ width: 4, height: 4, borderRadius: '50%', background: c.textFaint, marginTop: 8, flex: 'none' }} />
-                      <div style={{ fontSize: 14, lineHeight: 1.55, color: c.textMuted }}>{renderBulletText(b, c)}</div>
-                    </div>
-                  ))}
-                </div>
+                {job.sections?.map((section, si) => (
+                  <div key={section.title}>
+                    <div style={subsectionStyle(si === 0)}>{section.title}</div>
+                    <div style={bulletListStyle}>{renderBullets(section.bullets)}</div>
+                  </div>
+                ))}
+                {job.bullets.length > 0 && (
+                  <div style={{ ...bulletListStyle, marginTop: job.sections ? 22 : 12 }}>{renderBullets(job.bullets)}</div>
+                )}
               </div>
             </div>
           ))}
