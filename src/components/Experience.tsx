@@ -117,6 +117,9 @@ export default function Experience({ c, isMobile }: ExperienceProps) {
                 <div style={{ fontSize: 14, color: c.textMuted, fontWeight: 600, marginTop: 2 }}>
                   {job.company} · {job.location}
                 </div>
+                {job.summary && (
+                  <div style={{ fontSize: 14, lineHeight: 1.55, color: c.textFaint, marginTop: 8 }}>{job.summary}</div>
+                )}
                 {job.sections?.map((section, si) => (
                   <div key={section.title}>
                     <div style={subsectionStyle(si === 0)}>{section.title}</div>
