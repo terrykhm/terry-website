@@ -92,6 +92,12 @@ export default function Home({ c, dark, isMobile }: HomeProps) {
 
   const heroIntroParaStyle: CSSProperties = { ...heroIntroStyle, margin: '12px 0 0' };
 
+  const heroIntroUnderlineStyle: CSSProperties = {
+    textDecoration: 'underline',
+    textDecorationColor: c.textFaint,
+    textUnderlineOffset: 3,
+  };
+
   const homeLinksRowStyle: CSSProperties = {
     display: 'flex',
     flexDirection: 'column',
@@ -198,10 +204,11 @@ export default function Home({ c, dark, isMobile }: HomeProps) {
         <PerfCard c={c} dark={dark} isMobile={isMobile} perf={perf} open={perfOpen} />
         <p style={heroIntroStyle}>
           I'm a software engineer based in New York specializing in app architecture and performance. Over the past
-          seven years at Meta, I've led teams and solved deep technical problems impacting users across Instagram,
-          Threads, and Facebook.
+          seven years at Meta, I've led teams and solved deep technical problems that{' '}
+          <span style={heroIntroUnderlineStyle}>boosted user engagement</span> and{' '}
+          <span style={heroIntroUnderlineStyle}>increased revenue</span> across Instagram, Threads, and Facebook.
         </p>
-        <p style={{ ...heroIntroParaStyle, fontStyle: 'italic' }}>Currently, I work on Applied AI and Evaluations.</p>
+        <p style={{ ...heroIntroParaStyle, fontStyle: 'italic' }}>Currently working on Applied AI and Infrastructure. Open to new opportunities!</p>
         <div style={homeLinksRowStyle}>
           <a
             href={`#/${HOME_LINKS[0].name}`}
