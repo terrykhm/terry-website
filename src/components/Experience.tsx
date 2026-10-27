@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from 'react';
 import type { Colors } from '../theme';
-import { experiences, skills } from '../data';
+import { experiences, skills, type Bullet } from '../data';
 
 interface ExperienceProps {
   c: Colors;
@@ -67,13 +67,26 @@ export default function Experience({ c, isMobile }: ExperienceProps) {
     margin: `${first ? 14 : 22}px 0 8px`,
   });
 
-  const renderBullets = (bullets: string[]) =>
-    bullets.map((b, bi) => (
-      <div key={bi} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-        <div style={{ width: 4, height: 4, borderRadius: '50%', background: c.textFaint, marginTop: 8, flex: 'none' }} />
-        <div style={{ fontSize: 14, lineHeight: 1.55, color: c.textMuted }}>{renderBulletText(b, c)}</div>
-      </div>
-    ));
+  const renderBullet = (text: string, size: number, dot: number, key: number) => (
+    <div key={key} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+      <div style={{ width: dot, height: dot, borderRadius: '50%', background: c.textFaint, marginTop: 8, flex: 'none' }} />
+      <div style={{ fontSize: size, lineHeight: 1.55, color: c.textMuted }}>{renderBulletText(text, c)}</div>
+    </div>
+  );
+
+  const renderBullets = (bullets: Bullet[]) =>
+    bullets.map((b, bi) =>
+      typeof b === 'string' ? (
+        renderBullet(b, 14, 4, bi)
+      ) : (
+        <div key={bi} style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {renderBullet(b.text, 14, 4, 0)}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginLeft: 24 }}>
+            {b.sub.map((sb, si) => renderBullet(sb, 13.5, 3, si))}
+          </div>
+        </div>
+      ),
+    );
 
   const bulletListStyle: CSSProperties = { display: 'flex', flexDirection: 'column', gap: 8 };
 

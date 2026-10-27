@@ -1,6 +1,8 @@
+export type Bullet = string | { text: string; sub: string[] };
+
 export interface ExperienceSection {
   title: string;
-  bullets: string[];
+  bullets: Bullet[];
 }
 
 export interface Experience {
@@ -32,35 +34,55 @@ export const experiences: Experience[] = [
     location: 'New York, NY',
     dates: 'Jan 2021 — Present',
     summary:
-      "Team lead responsible for the performance and architecture of Instagram's mobile app, with impact across Instagram, Threads, and Facebook.",
+      "Tech lead responsible for the performance and architecture of Instagram's mobile app, with impact across Instagram, Threads, and Facebook, concentrating on client networking infrastructure, video playback, and reliability.",
     sections: [
       {
-        title: 'Leadership',
+        title: 'App Performance & Reliability',
         bullets: [
-          'Led eight junior-to-staff engineers to exceed goals for consecutive halves, setting direction, projects, and partnerships that increased revenue and user engagement.',
-          'Mentored 25+ engineers and interns through promotions (IC3→4→5) and conducted 100+ technical interviews.',
-        ],
-      },
-      {
-        title: 'App Performance',
-        bullets: [
-          "Defined Instagram's app-start, navigation, pagination, and video-render latency metrics and drove their adoption across all teams, catching regressions before launch and enabling partner-team wins.",
-          'Built an API-prefetching framework used across Profile, Explore, and Feed, cutting Profile navigation latency 20% (~360ms), improving app start, engagement, and revenue, and eliminating wasteful fetches.',
-          'Cut app-start time 1.7% (~60ms off a ~3.5s cold start) and built a start-up job coordinator that orchestrates launch-time jobs and code for performance and engagement.',
-          'Reduced video render latency by optimizing video codec and caching strategies.',
+          {
+            text: 'Architected and oversaw critical frameworks responsible for network orchestration, HTTP/3, caching, prefetching, app-start initializations, and client background tasks.',
+            sub: [
+              'Saved the company millions by eliminating unnecessary gCPU usage.',
+              'Built an easy-to-integrate API prefetching framework that was adopted across all major products on Instagram. Key highlights include a 20% reduction in navigation latency (360ms) to user profiles.',
+              'Reduced cold app-start times by over 3%.',
+            ],
+          },
+          {
+            text: 'Established newly defined app-start, navigation latency, and pagination performance metrics and enforced them across all teams in Instagram.',
+            sub: [
+              'Diagnosed regressions in production and pre-release that degraded or broke user experiences.',
+              'Provided consulting for major launches and new product features to build performant experiences.',
+            ],
+          },
+          {
+            text: 'Owner and front-line defender of video performance issues on Instagram and Threads.',
+            sub: [
+              'Reduced video render latency by over 15% by orchestrating requests.',
+              'Implemented new video caching infrastructure to reduce cache misses.',
+              'Optimized HTTP/3 prioritization strategies for video playback.',
+            ],
+          },
+          {
+            text: 'Drove down user-reported video bugs on Instagram and Threads by 10%.',
+            sub: ['Built AI-driven pipelines to analyze and root-cause bugs.'],
+          },
         ],
       },
       {
         title: 'Architecture',
         bullets: [
-          "Rearchitected Instagram Android's networking stack to bridge its legacy Java HTTP library and native C++ GraphQL library.",
-          "Led Instagram Android's GraphQL adoption: shipped Profile Timeline, its largest query, after it stalled (-270ms navigation latency), plus Following/Followers (-150ms) and the Feed MVVM repository refactor.",
+          "Rearchitected Instagram Android's core networking stack to bridge its legacy Java HTTP library and native C++ GraphQL library.",
+          'Migrated thousands of files from mutable to immutable data flows to adopt GraphQL.',
+          'Successfully migrated popular Instagram surfaces to GraphQL, resulting in 150-270ms navigation latency improvements.',
+          'Drove efforts to adopt MVVM across major surfaces on Instagram.',
         ],
       },
       {
-        title: 'Reliability',
+        title: 'Leadership',
         bullets: [
-          "Fixed the top memory leaks behind out-of-memory crashes, root-caused four major Threads regressions, and raised the team's bug-fix SLA compliance from 29% to 82%.",
+          'Increased revenue by millions of dollars and boosted user engagement as team lead of eight junior-to-staff engineers, exceeding goals for consecutive halves while setting direction, projects, and partnerships.',
+          'Mentored 25+ engineers and interns through promotions (IC3→4→5) and conducted 100+ technical interviews.',
+          'Championed numerous better-engineering efforts around reliability, architecture, code quality, and bugs for teams and orgs.',
         ],
       },
     ],
@@ -71,11 +93,12 @@ export const experiences: Experience[] = [
     company: 'Facebook',
     location: 'New York, NY',
     dates: 'Aug 2019 — Jan 2021',
-    summary: 'Android engineer on Facebook Music and Live; promoted to Software Engineer II.',
+    summary: 'Android engineer on Facebook Music and Live.',
     bullets: [
-      "Sole Android engineer on [Boombox](https://techcrunch.com/2021/04/19/facebook-is-expanding-spotify-partnership-with-new-boombox-project/), Facebook's Spotify integration: architected and shipped the MVP, then led MVP2 with dark mode, a new permissions flow, and ads. [(Spotify, 2021)](https://newsroom.spotify.com/2021-04-26/share-explore-and-discover-music-and-podcasts-via-spotify-in-the-facebook-app/)",
-      'Lifted the MiniPlayer’s user funnel 50% by re-architecting it to eliminate a system "draw over other apps" permission screen.',
-      'Shipped Live viewer and broadcaster features (Stars fan-funding, ticketing, event promotion) across Android and Native Templates.',
+      "Android engineer lead of [Boombox](https://techcrunch.com/2021/04/19/facebook-is-expanding-spotify-partnership-with-new-boombox-project/), a new 0-1 initiative collaboration between Facebook and Spotify.",
+      'Worked with Spotify engineers to adopt new SDKs to integrate Spotify playback into the Facebook app and launched to select countries ([Spotify, 2021](https://newsroom.spotify.com/2021-04-26/share-explore-and-discover-music-and-podcasts-via-spotify-in-the-facebook-app/)).',
+      "Reduced onboarding drop-off by 50% by re-architecting Facebook's video mini-player to eliminate a system permission prompt.",
+      'Implemented Facebook Live donation features for streamers.',
     ],
   },
   {
@@ -83,7 +106,10 @@ export const experiences: Experience[] = [
     company: 'Amazon Web Services',
     location: 'Herndon, VA',
     dates: 'Aug 2018 — Nov 2018',
-    bullets: ['Worked on Region Services Management and placed 2nd at the company hackathon.'],
+    bullets: [
+      'Implemented a new config system to manage AWS region services.',
+      'Placed 2nd at the company hackathon by creating an AI-powered meeting transcription and summarization tool.',
+    ],
   },
   {
     role: 'Software Engineering Intern',
@@ -91,7 +117,7 @@ export const experiences: Experience[] = [
     location: 'Menlo Park, CA',
     dates: 'May 2018 — Aug 2018',
     bullets: [
-      "Shipped bi-directional audio calling for [Watch Party](https://techcrunch.com/2018/01/17/facebook-watch-party/), one of the first features outside Messenger to use Facebook's real-time-call infrastructure.",
+      "Designed and tested group audio calling for [Watch Party](https://techcrunch.com/2018/01/17/facebook-watch-party/), letting friends talk while watching videos together, by extending Messenger's real-time calling infrastructure, a foundation later reused for [Messenger Rooms](https://about.fb.com/news/2020/04/introducing-messenger-rooms/).",
     ],
   },
   {
@@ -110,7 +136,7 @@ export const experiences: Experience[] = [
     location: 'College Park, MD',
     dates: 'Jan 2016 — Aug 2016',
     bullets: [
-      'Built database applications (Spring, PostgreSQL, Hibernate) to ingest hundreds of gigabytes of nationwide traffic data daily.',
+      'Built database applications (Spring, PostgreSQL, Hibernate) to daily ingest hundreds of gigabytes of nationwide traffic data.',
       'Reduced load and fetch times through concurrency and code simplification, and built D3 web apps to visualize traffic data for clients.',
     ],
   },
