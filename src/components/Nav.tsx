@@ -26,6 +26,8 @@ const ALL_NAV_ITEMS: NavItem[] = [
 
 const NAV_ITEMS = ALL_NAV_ITEMS.filter((item) => !item.hidden);
 
+const MENU_MS = 450;
+
 export default function Nav({
   c,
   dark,
@@ -170,29 +172,40 @@ export default function Nav({
           </div>
         </div>
 
-        {mobileMenuOpen && (
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 18,
-              padding: `20px ${isMobile ? 20 : 44}px 26px`,
-              borderBottom: `1px solid ${c.border}`,
-              background: c.bg,
-            }}
-          >
-            {NAV_ITEMS.map((item) => (
-              <a
-                key={item.name}
-                href={`#/${item.name}`}
-                onClick={onCloseMobileMenu}
-                style={{ fontSize: 15, color: c.text, fontWeight: 600 }}
-              >
-                {item.label}
-              </a>
-            ))}
+        <div
+          aria-hidden={!mobileMenuOpen}
+          style={{
+            display: 'grid',
+            gridTemplateRows: mobileMenuOpen ? '1fr' : '0fr',
+            opacity: mobileMenuOpen ? 1 : 0,
+            visibility: mobileMenuOpen ? 'visible' : 'hidden',
+            transition: `grid-template-rows ${MENU_MS}ms cubic-bezier(.4,0,.2,1), opacity ${MENU_MS}ms ease, visibility 0s linear ${mobileMenuOpen ? 0 : MENU_MS}ms`,
+          }}
+        >
+          <div style={{ overflow: 'hidden', minHeight: 0 }}>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 18,
+                padding: `20px ${isMobile ? 20 : 44}px 26px`,
+                borderBottom: `1px solid ${c.border}`,
+                background: c.bg,
+              }}
+            >
+              {NAV_ITEMS.map((item) => (
+                <a
+                  key={item.name}
+                  href={`#/${item.name}`}
+                  onClick={onCloseMobileMenu}
+                  style={{ fontSize: 15, color: c.text, fontWeight: 600 }}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
           </div>
-        )}
+        </div>
       </div>
     </>
   );
