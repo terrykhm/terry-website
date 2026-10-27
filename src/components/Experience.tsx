@@ -99,6 +99,16 @@ export default function Experience({ c, isMobile }: ExperienceProps) {
     margin: `${isMobile ? 44 : 56}px 0 20px`,
   };
 
+  const skillGroupLabelStyle: CSSProperties = {
+    fontFamily: "'JetBrains Mono',monospace",
+    fontSize: 11.5,
+    textTransform: 'uppercase',
+    letterSpacing: '.08em',
+    fontWeight: 600,
+    color: c.textFaint,
+    marginBottom: 8,
+  };
+
   const tagStyle: CSSProperties = {
     fontSize: 13.5,
     fontWeight: 600,
@@ -156,10 +166,17 @@ export default function Experience({ c, isMobile }: ExperienceProps) {
         </div>
 
         <div style={skillsKickerStyle}>Skills</div>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
-          {skills.map((s) => (
-            <div key={s} style={tagStyle}>
-              {s}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          {skills.map((group) => (
+            <div key={group.label}>
+              <div style={skillGroupLabelStyle}>{group.label}</div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+                {group.items.map((item) => (
+                  <div key={item} style={tagStyle}>
+                    {item}
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
         </div>

@@ -142,18 +142,17 @@ export const experiences: Experience[] = [
   },
 ];
 
-export const skills: string[] = [
-  'Android',
-  'iOS',
-  'Swift',
-  'Kotlin',
-  'React',
-  'JavaScript / TypeScript',
-  'Node.js',
-  'AWS',
-  'Performance Engineering',
-  'System Design',
-  'NLP',
+export interface SkillGroup {
+  label: string;
+  items: string[];
+}
+
+export const skills: SkillGroup[] = [
+  { label: 'Languages', items: ['Java', 'Kotlin', 'C++', 'Python', 'TypeScript', 'Swift', 'Haskell'] },
+  { label: 'Platforms', items: ['Android', 'iOS', 'Web (React)', 'AWS'] },
+  { label: 'Architecture', items: ['MVVM', 'GraphQL', 'System Design'] },
+  { label: 'Performance & Networking', items: ['Client Networking', 'HTTP/3', 'Latency Optimization', 'Reliability'] },
+  { label: 'AI', items: ['LLM Applications', 'Agents & Tool Use', 'MCP', 'Prompt Engineering'] },
 ];
 
 export const projectPlaceholders: ProjectPlaceholder[] = [
