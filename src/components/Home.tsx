@@ -208,7 +208,7 @@ export default function Home({ c, dark, isMobile }: HomeProps) {
           <span style={heroIntroUnderlineStyle}>boosted user engagement</span> and{' '}
           <span style={heroIntroUnderlineStyle}>increased revenue</span> across Instagram, Threads, and Facebook.
         </p>
-        <p style={{ ...heroIntroParaStyle, fontStyle: 'italic' }}>Currently working on Applied AI and Infrastructure. Open to new opportunities!</p>
+        <p style={{ ...heroIntroParaStyle, fontStyle: 'italic' }}>Currently working on Applied AI and Infrastructure.</p>
         <div style={homeLinksRowStyle}>
           <a
             href={`#/${HOME_LINKS[0].name}`}
