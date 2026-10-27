@@ -203,8 +203,8 @@ export default function Home({ c, dark, isMobile }: HomeProps) {
         </p>
         <PerfCard c={c} dark={dark} isMobile={isMobile} perf={perf} open={perfOpen} />
         <p style={heroIntroStyle}>
-          I'm a software engineer based in New York specializing in app architecture and performance. Over the past
-          seven years at Meta, I've led teams and solved deep technical problems that{' '}
+          I'm a software engineer based in New York specializing in app architecture and performance. I've led teams
+          and solved deep technical problems that{' '}
           <span style={heroIntroUnderlineStyle}>boosted user engagement</span> and{' '}
           <span style={heroIntroUnderlineStyle}>increased revenue</span> across Instagram, Threads, and Facebook.
         </p>
